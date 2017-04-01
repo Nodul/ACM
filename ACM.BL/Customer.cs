@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acme.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace ACM.BL
         Educator
     }
 
-    public class Customer : EntityBase
+    public class Customer : EntityBase, ILoggable
     {
         public Customer() : this(0)
         {
@@ -104,6 +105,13 @@ namespace ACM.BL
         public override string ToString()
         {
             return FullName;
+        }
+
+        public string Log()
+        {
+            var logString = $"{this.CustomerID}: {this.FullName} Email: {this.EmailAddress} Status: {this.EntityState.ToString()}";
+
+            return logString;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACM.BL
 {
-    public class Product : EntityBase
+    public class Product : EntityBase, ILoggable
     {
         public Product()
         {
@@ -29,7 +29,7 @@ namespace ACM.BL
         {
             get
             {
-                return ProductName.InsertSpaces();
+                return _productName.InsertSpaces();
             }
             set { _productName = value; }
         }
@@ -66,6 +66,13 @@ namespace ACM.BL
         public override int GetHashCode()
         {
             return this.CurrentPrice.GetHashCode() ^ this.ProductID.GetHashCode() ^ this.ProductDescription.GetHashCode() ^ this.ProductName.GetHashCode();
+        }
+
+        public string Log()
+        {
+            var logString = $"{this.ProductID}: {this.ProductName}: "+ $"{this.ProductDescription}"+ $" Status: {this.EntityState.ToString()}";
+
+            return logString;
         }
     }
 }
