@@ -15,7 +15,7 @@ namespace ACM.BL
         Educator
     }
 
-    public class Customer
+    public class Customer : EntityBase
     {
         public Customer() : this(0)
         {
@@ -68,7 +68,7 @@ namespace ACM.BL
         // Methods
 
 
-        public bool Validate()
+        protected override bool Validate()
         {
             var isValid = true;
 

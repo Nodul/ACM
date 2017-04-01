@@ -21,8 +21,11 @@ namespace ACM.BL
         {
             get
             {
-                return true; //for now
+                return Validate(); //for now
             }
         }
+
+        protected abstract bool Validate();
+       
     }
 }

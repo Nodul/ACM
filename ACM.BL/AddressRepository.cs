@@ -61,9 +61,22 @@ namespace ACM.BL
             return AddressList;
         }
 
-        public bool Save()
+        public bool Save(Address address)
         {
-            return true;
+            var success = true;
+
+            if (address.HasChanges && address.IsValid)
+            {
+                if (address.IsNew)
+                {
+                    // Call an insert stored procedure
+                }
+                else
+                {
+                    // Call an Update Stored Procedure
+                }
+            }
+            return success;
         }
     }
 }

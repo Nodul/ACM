@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ACM.BL
 {
-    public class Address
+    public class Address : EntityBase
     {
         public Address()
         {
@@ -53,6 +53,18 @@ namespace ACM.BL
         {
             return AddressID.GetHashCode() ^ AddressType.GetHashCode() ^ StreetLine1.GetHashCode() ^  City.GetHashCode() ^
                 State.GetHashCode() ^ PostalCode.GetHashCode() ^ Country.GetHashCode();
+        }
+
+        protected override bool Validate()
+        {
+            var isValid = true;
+
+            if (string.IsNullOrWhiteSpace(StreetLine1)) isValid = false;
+            if (string.IsNullOrWhiteSpace(City)) isValid = false;
+            if (string.IsNullOrWhiteSpace(State)) isValid = false;
+            if (string.IsNullOrWhiteSpace(Country)) isValid = false;
+
+            return isValid;
         }
     }
 }
