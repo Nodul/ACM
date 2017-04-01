@@ -80,7 +80,7 @@ namespace ACM.BLTest
 
             var expected = true;
             // Act
-            var actual = customer.Validate();
+            var actual = customer.IsValid;
             // Assert
             Assert.AreEqual(expected,actual);
             
@@ -94,7 +94,7 @@ namespace ACM.BLTest
 
             var expected = false;
             // Act
-            var actual = customer.Validate();
+            var actual = customer.IsValid;
             // Assert
             Assert.AreEqual(expected, actual);
 
@@ -109,7 +109,7 @@ namespace ACM.BLTest
 
             var expected = false;
             // Act
-            var actual = customer.Validate();
+            var actual = customer.IsValid;
             // Assert
             Assert.AreEqual(expected, actual);
 
