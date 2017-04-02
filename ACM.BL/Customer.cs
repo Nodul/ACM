@@ -60,6 +60,9 @@ namespace ACM.BL
                 return fullName;
             }
         }
+
+        public List<Invoice> InvoiceList { get; set; }
+
         // Methods
 
 

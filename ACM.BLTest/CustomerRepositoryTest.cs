@@ -226,5 +226,26 @@ namespace ACM.BLTest
             // NOT really a test because no assertions
 
         }
+
+        [TestMethod]
+        public void GetOverdueCustomersTest()
+        {
+            CustomerRepository repo = new CustomerRepository();
+            var customerList = repo.Retrieve();
+
+            var result = repo.GetOverdueCustomers(customerList);
+
+            Console.WriteLine("Customers with overdue invoices:");
+            foreach (var c in result)
+            {
+                Console.WriteLine(c.FullName);
+            }
+
+            Assert.IsNotNull(result);
+            //Assert.IsTrue(result.Count() > 0);
+            //Assert.AreEqual(null, result.Last().CustomerType);
+
+        }
+
     }
 }

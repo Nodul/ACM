@@ -70,19 +70,19 @@ namespace ACM.BL
 
         public dynamic GetNamesAndTypes(List<Customer> customerList, List<CustomerType> customerTypeList)
         {
-            
+
             var query = customerList.Join(customerTypeList,
                 (c) => c.CustomerTypeID.CustomerTypeID,
                 (ct) => ct.CustomerTypeID,
-                (c,ct) => new
+                (c, ct) => new
                 {
                     Name = c.FullName,
                     CustomerTypeName = ct.TypeName
                 }).Distinct();
-            
-            foreach(var item in query)
+
+            foreach (var item in query)
             {
-                Console.WriteLine(item.Name + ", "+ item.CustomerTypeName);
+                Console.WriteLine(item.Name + ", " + item.CustomerTypeName);
             }
 
             return query;
@@ -95,6 +95,7 @@ namespace ACM.BL
         /// <returns></returns>
         public List<Customer> Retrieve()
         {
+            InvoiceRepository invoiceRepo = new InvoiceRepository();
             // hard coded for testing
             List<Customer> custList = new List<Customer>()
             {
@@ -103,32 +104,57 @@ namespace ACM.BL
                     FirstName = "Frodo",
                     LastName = "Baggins",
                     EmailAddress = "fbaggins@hobbiton.me",
-                    CustomerTypeID = new CustomerType(CustomerTypes.Residential,2)
+                    CustomerTypeID = new CustomerType(CustomerTypes.Residential,2),
+                    InvoiceList = invoiceRepo.Retrieve(1)
                 },
                     new Customer(2)
                 {
                     FirstName = "Bilbo",
                     LastName = "Baggins",
                     EmailAddress = "bbaggins@hobbiton.me",
-                     CustomerTypeID = new CustomerType(CustomerTypes.Residential,1)
+                    CustomerTypeID = new CustomerType(CustomerTypes.Residential,1),
+                    InvoiceList = invoiceRepo.Retrieve(2)
                 },
                         new Customer(3)
                 {
                     FirstName = "Samwise",
                     LastName = "Gamgee",
                     EmailAddress = "sgamgee@hobbiton.me",
-                     CustomerTypeID = new CustomerType(CustomerTypes.Educator,4)
+                    CustomerTypeID = new CustomerType(CustomerTypes.Educator,4),
+                    InvoiceList = invoiceRepo.Retrieve(3)
                 },
                             new Customer(4)
                 {
                     FirstName = "",
                     LastName = "Shire Administration Agency",
                     EmailAddress = "SAA@shire.me",
-                    CustomerTypeID = new CustomerType(CustomerTypes.Government,3)
+                    CustomerTypeID = new CustomerType(CustomerTypes.Government,3),
+                    InvoiceList = invoiceRepo.Retrieve(4)
                 }
             };
 
             return custList;
+        }
+
+        public IEnumerable<Customer> GetOverdueCustomers(List<Customer> custList)
+        {
+            // Sadly we won't have direct access to customers 
+            //var query = custList
+            //    .Select(c => c.InvoiceList
+            //        .Where(i => (i.IsPaid ?? false) == false));
+
+            // This makes it so we don't need IEnumerable<IEnumerable<Invoice>>, which is simplified to IEnumerable<Invoice>
+            //var query = custList
+            //    .SelectMany(c => c.InvoiceList
+            //         .Where(i => (i.IsPaid ?? false) == false));
+
+            // Finally this allows to convert directly to IEnumerable<Customer>, as we wanted from the beginning
+            var query = custList
+              .SelectMany(c => c.InvoiceList
+               .Where(i => (i.IsPaid ?? false) == false),
+               (c,i) => c).Distinct();
+
+            return query;
         }
 
         public IEnumerable<Customer> RetrieveEmptyList()
