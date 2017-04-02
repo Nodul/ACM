@@ -8,13 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACM.BL
 {
-    public enum CustomerType
-    {
-        Business,
-        Residential,
-        Government,
-        Educator
-    }
+
 
     public class Customer : EntityBase, ILoggable
     {
@@ -32,7 +26,7 @@ namespace ACM.BL
 
         public List<Address> addressList { get; set; }
 
-        public CustomerType CustomerType { get; set; }
+        public CustomerType CustomerTypeID { get; set; }
 
         public static int InstanceCount { get; set; }
 

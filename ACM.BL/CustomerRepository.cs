@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace ACM.BL
             customer.addressList = _addressRepository.RetrieveByCustomerID(customerID).ToList();
 
             // temp hard coded values to return a populated customer
-            if(customerID == 1)
+            if (customerID == 1)
             {
                 customer.EmailAddress = "fbaggins@hobbiton.me";
                 customer.FirstName = "Frodo";
@@ -35,13 +36,132 @@ namespace ACM.BL
 
             return customer;
         }
+
+        public Customer Find(List<Customer> customerList, int customerID)
+        {
+            Customer custFound = null;
+
+            //foreach (var cust in customerList)
+            //{
+            //    if(cust.CustomerID == customerID)
+            //    {
+            //        custFound = cust;
+            //        break;
+            //    }
+            //}
+
+            //var query = from c in customerList
+            //            where c.CustomerID == customerID
+            //            select c;
+
+            //custFound = query.First();
+
+            custFound = customerList.FirstOrDefault(c => c.CustomerID == customerID); // without braces only single line expressions are allowed
+
+            //custFound = customerList.FirstOrDefault(c =>
+            //    {
+            //        Debug.WriteLine(c.LastName);
+            //        return c.CustomerID == customerID;
+            //    });
+
+            // custFound = customerList.Where(c => c.CustomerID == customerID).Skip(0).FirstOrDefault();
+            return custFound;
+        }
+
+        public dynamic GetNamesAndTypes(List<Customer> customerList, List<CustomerType> customerTypeList)
+        {
+            
+            var query = customerList.Join(customerTypeList,
+                (c) => c.CustomerTypeID.CustomerTypeID,
+                (ct) => ct.CustomerTypeID,
+                (c,ct) => new
+                {
+                    Name = c.FullName,
+                    CustomerTypeName = ct.TypeName
+                }).Distinct();
+            
+            foreach(var item in query)
+            {
+                Console.WriteLine(item.Name + ", "+ item.CustomerTypeName);
+            }
+
+            return query;
+        }
+
+
         /// <summary>
         /// Returns all customers
         /// </summary>
         /// <returns></returns>
         public List<Customer> Retrieve()
         {
-            return new List<Customer>();
+            // hard coded for testing
+            List<Customer> custList = new List<Customer>()
+            {
+                new Customer(1)
+                {
+                    FirstName = "Frodo",
+                    LastName = "Baggins",
+                    EmailAddress = "fbaggins@hobbiton.me",
+                    CustomerTypeID = new CustomerType(CustomerTypes.Residential,2)
+                },
+                    new Customer(2)
+                {
+                    FirstName = "Bilbo",
+                    LastName = "Baggins",
+                    EmailAddress = "bbaggins@hobbiton.me",
+                     CustomerTypeID = new CustomerType(CustomerTypes.Residential,1)
+                },
+                        new Customer(3)
+                {
+                    FirstName = "Samwise",
+                    LastName = "Gamgee",
+                    EmailAddress = "sgamgee@hobbiton.me",
+                     CustomerTypeID = new CustomerType(CustomerTypes.Educator,4)
+                },
+                            new Customer(4)
+                {
+                    FirstName = "",
+                    LastName = "Shire Administration Agency",
+                    EmailAddress = "SAA@shire.me",
+                    CustomerTypeID = new CustomerType(CustomerTypes.Government,3)
+                }
+            };
+
+            return custList;
+        }
+
+        public IEnumerable<Customer> RetrieveEmptyList()
+        {
+            return Enumerable.Repeat(new Customer(), 5);
+        }
+
+        public IEnumerable<string> GetNames(List<Customer> customerList)
+        {
+            var query = customerList.Select(c => c.FullName);
+
+            return query;
+        }
+
+        /// <summary>
+        /// But don't do this in real code, try to make a new class for this new data type 
+        /// </summary>
+        /// <param name="customerList"></param>
+        /// <returns></returns>
+        public dynamic GetNamesAndEmail(List<Customer> customerList)
+        {
+            var query = customerList.Select(c => new
+            {
+                Name = c.FullName,
+                c.EmailAddress
+            });
+
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.Name + ":" + item.EmailAddress);
+            }
+
+            return query;
         }
 
         /// <summary>
@@ -64,6 +184,31 @@ namespace ACM.BL
                 }
             }
             return success;
+        }
+
+        public IEnumerable<Customer> SortByName(List<Customer> custList)
+        {
+            return custList.OrderBy(c => c.LastName)
+                .ThenBy(c => c.FirstName);
+        }
+
+        public IEnumerable<Customer> SortByNameInReverse(List<Customer> custList)
+        {
+            // Method 1
+
+            //return custList.OrderByDescending(c => c.LastName)
+            //    .ThenByDescending(c => c.FirstName);
+
+            // Method 2
+
+            return SortByName(custList).Reverse();
+        }
+
+        public IEnumerable<Customer> SortByType(List<Customer> custList)
+        {
+            // This will make the items with null values go to bottom of list, while normal values will stay at top
+            return custList.OrderByDescending(c => c.CustomerTypeID != null).ThenBy(c => (int)c.CustomerTypeID.CustomerTypeID);
+
         }
     }
 }
