@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.Library", "ACM.Library\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.LibraryTest", "ACM.LibraryTest\ACM.LibraryTest.csproj", "{B275B916-F1EC-4DB3-A280-C4ED1A841B68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.Win", "ACM.Win\ACM.Win.csproj", "{98EB949E-BA4E-4649-A814-7333E5465ACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.WPF", "ACM.WPF\ACM.WPF.csproj", "{F86F1794-2A43-40FE-9C01-D0C9DF2B2BAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{B275B916-F1EC-4DB3-A280-C4ED1A841B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B275B916-F1EC-4DB3-A280-C4ED1A841B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B275B916-F1EC-4DB3-A280-C4ED1A841B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98EB949E-BA4E-4649-A814-7333E5465ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98EB949E-BA4E-4649-A814-7333E5465ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98EB949E-BA4E-4649-A814-7333E5465ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98EB949E-BA4E-4649-A814-7333E5465ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86F1794-2A43-40FE-9C01-D0C9DF2B2BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86F1794-2A43-40FE-9C01-D0C9DF2B2BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86F1794-2A43-40FE-9C01-D0C9DF2B2BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86F1794-2A43-40FE-9C01-D0C9DF2B2BAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

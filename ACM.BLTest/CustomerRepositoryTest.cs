@@ -246,6 +246,21 @@ namespace ACM.BLTest
             //Assert.AreEqual(null, result.Last().CustomerType);
 
         }
+        [TestMethod]
+        public void GetInvoiceTotalByCustomerTypeTest()
+        {
+            CustomerRepository repo = new CustomerRepository();
+            var customerList = repo.Retrieve();
+
+            CustomerTypeRepository custTypeRepo = new CustomerTypeRepository();
+            var customerTypeList = custTypeRepo.Retrieve();
+
+            var result = repo.GetInvoiceTotalByCustomerType(customerList,customerTypeList);
+
+            //Assert.IsTrue(result.Count() > 0);
+            //Assert.AreEqual(null, result.Last().CustomerType);
+
+        }
 
     }
 }

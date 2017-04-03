@@ -68,6 +68,20 @@ namespace ACM.BL
             return custFound;
         }
 
+        public dynamic GetNamesAndID(List<Customer> customerList)
+        {
+            var query = customerList
+                .OrderBy(c => c.LastName)
+                .ThenBy(c => c.FirstName)
+                .Select(c => new
+                {
+                    Name = c.FullName,
+                    c.CustomerID
+                });
+
+            return query.ToList();
+        }
+
         public dynamic GetNamesAndTypes(List<Customer> customerList, List<CustomerType> customerTypeList)
         {
 
@@ -85,7 +99,7 @@ namespace ACM.BL
                 Console.WriteLine(item.Name + ", " + item.CustomerTypeName);
             }
 
-            return query;
+            return query.ToList();
         }
 
 
@@ -157,6 +171,32 @@ namespace ACM.BL
             return query;
         }
 
+        public IEnumerable<KeyValuePair<string,decimal>> GetInvoiceTotalByCustomerType(List<Customer> customerList, List<CustomerType> customerTypeList)
+        {
+            var customerTypeQuery = customerList.Join(
+                customerTypeList,
+                c => c.CustomerTypeID.CustomerTypeID,
+                ct => ct.CustomerTypeID,
+                (c,ct) => new
+                {
+                    CustomerInstance = c,
+                    CustomerTypeName = ct.TypeName
+                });
+
+            var query = customerTypeQuery
+                .GroupBy(
+                    c => c.CustomerTypeName,
+                    c => c.CustomerInstance.InvoiceList.Sum(inv => inv.TotalAmount),
+                    (groupKey, invTotal) => new KeyValuePair<string,decimal>(groupKey,invTotal.Sum()));
+
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.Key}: {item.Value}");
+            }
+
+            return query;
+        }
+
         public IEnumerable<Customer> RetrieveEmptyList()
         {
             return Enumerable.Repeat(new Customer(), 5);
@@ -212,7 +252,7 @@ namespace ACM.BL
             return success;
         }
 
-        public IEnumerable<Customer> SortByName(List<Customer> custList)
+        public IEnumerable<Customer> SortByName(IEnumerable<Customer> custList)
         {
             return custList.OrderBy(c => c.LastName)
                 .ThenBy(c => c.FirstName);
