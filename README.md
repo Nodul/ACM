@@ -11,5 +11,5 @@ TODO :
 * Make WPF work and actually add some controls
 * Way more tests
 * Make use of interfaces, especially for repositories.
-* Ddd OperationResult return type to other methods
+* Add OperationResult return type to other methods
 * Some bits and bobs spread around code [marked with TODO]
