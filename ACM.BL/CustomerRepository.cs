@@ -16,6 +16,18 @@ namespace ACM.BL
             _addressRepository = new AddressRepository();
         }
 
+        public void Add(Customer customer)
+        {
+            // -- If this is a new customer, create the customer record --
+            // Determine whether the customer is an existing customer.
+            // If not, validate entered customer information
+            // If not valid, notify the user.
+            // If valid,
+            // Open a connection
+            // Set stored procedure parameters with the customer data.
+            // Call the save stored procedure.
+        }
+
         /// <summary>
         /// Retrieve one customer, by ID;
         /// </summary>
@@ -24,7 +36,7 @@ namespace ACM.BL
         public Customer Retrieve(int customerID)
         {
             Customer customer = new Customer(customerID);
-            customer.addressList = _addressRepository.RetrieveByCustomerID(customerID).ToList();
+            customer.AddressList = _addressRepository.RetrieveByCustomerID(customerID).ToList();
 
             // temp hard coded values to return a populated customer
             if (customerID == 1)
@@ -35,6 +47,13 @@ namespace ACM.BL
             }
 
             return customer;
+        }
+
+        public void Update()
+        {
+            // Open a connection
+            // Set stored procedure parameters with the customer data.
+            // Call the save stored procedure.
         }
 
         public Customer Find(List<Customer> customerList, int customerID)

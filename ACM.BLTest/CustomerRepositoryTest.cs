@@ -51,7 +51,7 @@ namespace ACM.BLTest
                 EmailAddress = "fbaggins@hobbiton.me",
                 FirstName = "Frodo",
                 LastName = "Baggins",
-                addressList = new List<Address>()
+                AddressList = new List<Address>()
                 {
                     new Address()
                     {

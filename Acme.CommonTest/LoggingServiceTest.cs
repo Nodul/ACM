@@ -19,7 +19,7 @@ namespace Acme.CommonTest
                 EmailAddress = "fbagging@hobbiton.me",
                 FirstName = "Frodo",
                 LastName = "Baggins",
-                addressList = null
+                AddressList = null
             };
             changedItems.Add(customer);
 
