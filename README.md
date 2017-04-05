@@ -1,4 +1,4 @@
-# ACM
+# ACM - Acme Customer Management
 Project from Pluralsight's course: Object-Oriented Programming Fundamentals in C# - with Deborah Kurata. Also added Practical LINQ and Defensive coding in C# also with Deborah Kurata. <br /> 
 After completing the tutorial I'll expand it a little bit, adding stuff like SQL etc
 
