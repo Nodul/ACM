@@ -7,6 +7,8 @@ Status :
 * Module 6/6 - Practical LINQ
 * Module 8/8 - Defensive coding in C#
 
+Still a long way to go to make it useful
+
 TODO :
 * Make WPF work and actually add some controls
 * Way more tests
