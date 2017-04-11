@@ -9,9 +9,3 @@ Status :
 
 Still a long way to go to make it useful
 
-TODO :
-* Make WPF work and actually add some controls
-* Way more tests
-* Make use of interfaces, especially for repositories.
-* Add OperationResult return type to other methods
-* Some bits and bobs spread around code [marked with TODO]
